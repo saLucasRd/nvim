@@ -1,24 +1,28 @@
 return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function() 
+      local configs = require("nvim-treesitter")
 
-	{
-		'nvim-treesitter/nvim-treesitter',
-		lazy = false,
-		build = ':TSUpdate',
-		config = function()
-			local configs = require('nvim-treesitter.config')
-			configs.setup({
-				ensure_installed = {
-					"lua", "vim", "vimdoc", "query", "javascript",
-					"html", "css", "python", "bash", "java"
-				},
-				sync_install = false,
-				auto_install = true,
-				highlight = {
-					enable = true,
-					additional_vim_regex_hihlighting = false,
-				},
-				indent = { enable = true },
-			})
-		end
-	}
+      configs.setup({
+        ensure_installed = { 
+            "lua", "vim", "vimdoc", "query", "javascript", 
+            "html", "css", "python", "bash", "java" 
+        },
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "<A-o>",
+          node_incremental = "<A-o>",
+          scope_incremental = "<A-O>",
+          node_decremental = "<A-i>",
+
+        },
+      })
+    end
+  }
 }
