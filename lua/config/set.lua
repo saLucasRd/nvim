@@ -23,6 +23,10 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.colorcolumn = "100"
 vim.opt.signcolumn = "yes"
 
+vim.opt.wrap = true
+vim.opt.breakindent = true
+vim.opt.showbreak = "↪"
+
 vim.opt.list = true
 vim.opt.listchars = {
 	tab = "» ",
