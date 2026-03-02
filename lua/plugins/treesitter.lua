@@ -10,8 +10,12 @@ return {
 					"lua", "vim", "vimdoc", "query", "javascript", 
 					"html", "css", "python", "bash", "java" 
 				},
+				auto_install = true,
 				sync_install = false,
-				highlight = { enable = true },
+				highlight = {
+					enable = true,
+					additional_vim_regex_highlighting = false,
+				},
 				indent = { enable = true },
 				incremental_selection = {
 					enable = true,
