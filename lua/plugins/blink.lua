@@ -28,7 +28,17 @@ return {
 		opts = {
 			keymap = {
 				preset = "default",
-				["<Tab>"] = { "snippet_forward", "fallback" },
+				["<Tab>"] = {
+					function(cmp)
+						if cmp.is_menu_visible() then
+							return cmp.select_and_accept()
+						end
+						if cmp.is_snippet_active() then
+							return cmp.snippet_forward()
+						end
+					end,
+					"fallback",
+				},
 				["<S-Tab>"] = { "snippet_backward", "fallback" },
 			},
 
