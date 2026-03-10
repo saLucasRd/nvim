@@ -1,6 +1,7 @@
 return {
 	{
 		"lewis6991/gitsigns.nvim",
+		event = "VeryLazy",
 		config = function()
 			require("gitsigns").setup({
 				signs = {
@@ -9,10 +10,12 @@ return {
 					delete = { text = "-" },
 					topdelete = { text = "‾" },
 					changedelete = { text = "~" },
+					untracked = { text = "┆" },
+				},
+				diff_opts = {
+					ignore_whitespace = true,
 				},
 			})
-
-			local gs = require("gitsigns")
 		end,
 	},
 

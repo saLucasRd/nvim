@@ -1,9 +1,5 @@
 return {
 	{
-		"nvim-tree/nvim-web-devicons",
-		opts = { default = true },
-	},
-	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
 		opts = {
@@ -18,31 +14,6 @@ return {
 		},
 	},
 	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			options = {
-				theme = "gruvbox-material",
-				section_separators = { left = "", right = "" },
-				component_separators = { left = "", right = "" },
-				globalstatus = true,
-			},
-			sections = {
-				lualine_b = {
-					{
-						"branch",
-						fmt = function(str)
-							if #str > 20 then
-								return str:sub(1, 17) .. "..."
-							end
-							return str
-						end,
-					},
-				},
-			},
-		},
-	},
-	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		event = "BufReadPost",
@@ -51,15 +22,17 @@ return {
 	{
 		"HiPhish/rainbow-delimiters.nvim",
 		dependencies = "nvim-treesitter/nvim-treesitter",
+		event = "BufReadPost",
 		config = function()
 			local rainbow_delimiters = require("rainbow-delimiters")
-
 			require("rainbow-delimiters.setup").setup({
 				strategy = {
 					[""] = rainbow_delimiters.strategy["global"],
+					java = rainbow_delimiters.strategy["global"],
 				},
 				query = {
 					[""] = "rainbow-delimiters",
+					java = "rainbow-delimiters",
 				},
 				highlight = {
 					"RainbowDelimiterRed",
