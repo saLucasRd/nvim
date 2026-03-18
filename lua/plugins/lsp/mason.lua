@@ -14,6 +14,13 @@ return {
 				"pyright",
 				"clangd",
 			},
+			handlers = {
+				function(server_name)
+					require("lspconfig")[server_name].setup({})
+				end,
+
+				["jdtls"] = function() end,
+			},
 		},
 	},
 }

@@ -26,9 +26,6 @@ return {
 			})
 			vim.lsp.enable("lua_ls")
 
-			-- ════════════════════════════════════════
-			-- Java LSP (jdtls) - via nvim-jdtls plugin
-			-- ════════════════════════════════════════
 			local jdtls_available, jdtls = pcall(require, "jdtls")
 			if jdtls_available then
 				vim.api.nvim_create_autocmd("FileType", {
@@ -40,43 +37,28 @@ return {
 							.. "/.cache/jdtls-workspace/"
 							.. vim.fn.fnamemodify(root_dir, ":p:h:t")
 
+						local mason_jdtls_path = home .. "/.local/share/nvim/mason/packages/jdtls"
+
 						local config = {
 							cmd = {
-								"java",
+								"/usr/lib/jvm/java-21-openjdk/bin/java",
 								"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 								"-Dosgi.bundles.defaultStartLevel=4",
 								"-Declipse.product=org.eclipse.jdt.ls.core.product",
 								"-Dlog.level=WARN",
-								"-noverify",
-								"-Xmx1G",
+								"-Xmx2G",
 								"--add-modules=ALL-SYSTEM",
 								"--add-opens",
 								"java.base/java.util=ALL-UNNAMED",
 								"--add-opens",
 								"java.base/java.lang=ALL-UNNAMED",
 								"-jar",
-								vim.fn.glob(
-									home
-										.. "/.cache/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"
-								),
+								vim.fn.glob(mason_jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
 								"-configuration",
-								home .. "/.cache/nvim/mason/packages/jdtls/config_linux",
+								mason_jdtls_path .. "/config_linux",
 								"-data",
 								workspace_dir,
 							},
-							root_dir = root_dir,
-							settings = {
-								java = {
-									eclipse = { downloadSources = true },
-									configuration = { updateBuildConfiguration = "interactive" },
-									maven = { downloadSources = true },
-									implementationsCodeLens = { enabled = true },
-									referencesCodeLens = { enabled = true },
-									format = { enabled = true },
-								},
-							},
-							init_options = { bundles = {} },
-							capabilities = capabilities,
 						}
 
 						jdtls.start_or_attach(config)
@@ -84,9 +66,6 @@ return {
 				})
 			end
 
-			-- ════════════════════════════════════════
-			-- Keybindings (todas as linguagens)
-			-- ════════════════════════════════════════
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 				callback = function(ev)

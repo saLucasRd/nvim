@@ -4,12 +4,12 @@ return {
 		opts = { default = true },
 	},
 	{
-		"sainnhe/gruvbox-material",
+		"ellisonleao/gruvbox.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.g.gruvbox_material_enable_italic = true
-			vim.cmd.colorscheme("gruvbox-material")
+			vim.o.background = "dark"
+			vim.cmd.colorscheme("gruvbox")
 		end,
 	},
 	{
@@ -17,7 +17,7 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			options = {
-				theme = "gruvbox-material",
+				theme = "gruvbox",
 				section_separators = { left = "", right = "" },
 				component_separators = { left = "", right = "" },
 				globalstatus = true,
