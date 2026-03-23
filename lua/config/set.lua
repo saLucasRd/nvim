@@ -22,8 +22,8 @@ vim.opt.smartcase = true
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.termguicolors = true
-vim.opt.signcolumn = "yes"
 vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
 
 vim.opt.updatetime = 50
 vim.opt.swapfile = false
@@ -37,6 +37,11 @@ vim.opt.signcolumn = "yes"
 vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.showbreak = " ↪ "
+
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
+vim.opt.linebreak = true
 
 vim.opt.list = true
 vim.opt.listchars = {

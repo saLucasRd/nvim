@@ -21,11 +21,13 @@ return {
 						vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
 					end
 
-					-- Navegação entre hunks (convenção universal)
-					map("]h", gs.nav_hunk("next"), "Next Hunk")
-					map("[h", gs.nav_hunk("prev"), "Prev Hunk")
+					map("]h", function()
+						gs.nav_hunk("next")
+					end, "Next Hunk")
+					map("[h", function()
+						gs.nav_hunk("prev")
+					end, "Prev Hunk")
 
-					-- Ações
 					map("<leader>Gs", gs.stage_hunk, "Stage Hunk")
 					map("<leader>Gr", gs.reset_hunk, "Reset Hunk")
 					map("<leader>GS", gs.stage_buffer, "Stage Buffer")

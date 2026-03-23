@@ -1,6 +1,9 @@
 return {
 	{
 		"williamboman/mason.nvim",
+		opts = {
+			ensure_installed = { "jdtls", "google-java-format", "stylua" },
+		},
 		config = function()
 			require("mason").setup()
 		end,
@@ -9,17 +12,9 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		opts = {
 			ensure_installed = {
-				"jdtls",
 				"lua_ls",
 				"pyright",
 				"clangd",
-			},
-			handlers = {
-				function(server_name)
-					require("lspconfig")[server_name].setup({})
-				end,
-
-				["jdtls"] = function() end,
 			},
 		},
 	},
