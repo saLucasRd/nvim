@@ -5,11 +5,26 @@ return {
 		opts = {
 			preset = "modern",
 		},
+		config = function(_, opts)
+			local wk = require("which-key")
+			wk.setup(opts)
+			wk.add({
+				{ "<leader>h", group = " Harpoon" },
+				{ "<leader><leader>", desc = "Find Buffers" },
+				{ "<leader>/", desc = "Fuzzy Search Buffer" },
+
+				{ "<leader>s", group = " Search" },
+
+				{ "<leader>g", group = " Go to" },
+				{ "<leader>c", group = "󰅱 Code" },
+				{ "<leader>d", group = " Diagnostics" },
+			})
+		end,
 	},
 	{
 		"rcarriga/nvim-notify",
 		opts = {
-			timeout = 2000,
+			timeout = 1000,
 			stages = "fade",
 		},
 	},

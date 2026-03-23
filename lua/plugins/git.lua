@@ -15,6 +15,24 @@ return {
 				diff_opts = {
 					ignore_whitespace = true,
 				},
+				on_attach = function(bufnr)
+					local gs = require("gitsigns")
+					local map = function(keys, func, desc)
+						vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+					end
+
+					-- Navegação entre hunks (convenção universal)
+					map("]h", gs.nav_hunk("next"), "Next Hunk")
+					map("[h", gs.nav_hunk("prev"), "Prev Hunk")
+
+					-- Ações
+					map("<leader>Gs", gs.stage_hunk, "Stage Hunk")
+					map("<leader>Gr", gs.reset_hunk, "Reset Hunk")
+					map("<leader>GS", gs.stage_buffer, "Stage Buffer")
+					map("<leader>Gp", gs.preview_hunk, "Preview Hunk")
+					map("<leader>Gb", gs.toggle_current_line_blame, "Toggle Blame")
+					map("<leader>Gd", gs.diffthis, "Diff This")
+				end,
 			})
 		end,
 	},

@@ -36,7 +36,7 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.wrap = true
 vim.opt.breakindent = true
-vim.opt.showbreak = "↪"
+vim.opt.showbreak = " ↪ "
 
 vim.opt.list = true
 vim.opt.listchars = {

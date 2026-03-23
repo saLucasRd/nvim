@@ -34,31 +34,25 @@ return {
 			pcall(require("telescope").load_extension, "fzf")
 			pcall(telescope.load_extension, "ui-select")
 
-			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]ile" })
-			vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch [W]ord under cursor" })
-			-- gits
-			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-			vim.keymap.set("n", "<leader>sb", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-			-- docs
-			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-
-			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "Buffers" })
+			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "Files" })
+			vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "Live Grep" })
+			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "Word Under Cursor" })
+			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "Resume Last Search" })
+			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "Help Tags" })
+			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "Keymaps" })
+			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "Diagnostics" })
 
 			vim.keymap.set("n", "<leader>sn", function()
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
-			end, { desc = "[S]earch [N]eovim files" })
+			end, { desc = "Neovim Config files" })
 
 			vim.keymap.set("n", "<leader>/", function()
 				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 					winblend = 10,
 					previewer = false,
 				}))
-			end, { desc = "[/] Fuzzily search in current buffer" })
+			end, { desc = "Fuzzy Search Buffer" })
 		end,
 	},
 }

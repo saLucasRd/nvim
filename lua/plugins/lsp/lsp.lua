@@ -10,9 +10,6 @@ return {
 		config = function()
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-			-- ════════════════════════════════════════
-			-- Lua LSP
-			-- ════════════════════════════════════════
 			vim.lsp.config("lua_ls", {
 				install = true,
 				cmd = { "lua-language-server" },
@@ -74,22 +71,23 @@ return {
 							buffer = ev.buf,
 							noremap = true,
 							silent = true,
-							desc = "LSP: " .. desc,
+							desc = " " .. desc,
 						})
 					end
 
-					nmap("<C-r>", require("telescope.builtin").lsp_references, "[R]eferences")
-					nmap("<leader>gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-					nmap("<leader>gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+					nmap("<leader>gr", require("telescope.builtin").lsp_references, "References")
+					nmap("<leader>gd", vim.lsp.buf.definition, "Goto Definition")
+					nmap("<leader>gi", vim.lsp.buf.implementation, "Goto Implementation")
+					nmap("<leader>gt", vim.lsp.buf.type_definition, "Type Definition")
+					nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+					nmap("<leader>cf", function()
+						vim.lsp.buf.format({ async = true })
+					end, "Format File")
+					nmap("<leader>cr", vim.lsp.buf.rename, "Rename")
 					nmap("K", vim.lsp.buf.hover, "Hover")
-					nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-					nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 				end,
 			})
 
-			-- ════════════════════════════════════════
-			-- Diagnostics
-			-- ════════════════════════════════════════
 			vim.diagnostic.config({
 				virtual_text = true,
 				signs = true,
