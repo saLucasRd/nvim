@@ -9,15 +9,16 @@ return {
 			local wk = require("which-key")
 			wk.setup(opts)
 			wk.add({
-				{ "<leader>h", group = " Harpoon" },
+				-- Groups
+				{ "<leader>d", group = "Diagnostics", icon = "" },
+				{ "<leader>h", group = "Harpoon", icon = "" },
+				{ "<leader>s", group = "Search", icon = "" },
+				{ "<leader>g", group = "Go to", icon = "" },
+				{ "<leader>c", group = "Code", icon = "" },
+				{ "<leader>G", group = "Git", icon = "" },
+
 				{ "<leader><leader>", desc = "Find Buffers" },
 				{ "<leader>/", desc = "Fuzzy Search Buffer" },
-
-				{ "<leader>s", group = " Search" },
-
-				{ "<leader>g", group = " Go to" },
-				{ "<leader>c", group = "󰅱 Code" },
-				{ "<leader>d", group = " Diagnostics" },
 			})
 		end,
 	},

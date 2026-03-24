@@ -10,6 +10,32 @@ return {
 		config = function()
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
+			-- pyhton
+			vim.lsp.config("basedpyright", {
+				install = true,
+				capabilities = capabilities,
+				settings = {
+					basedpyright = {
+						analysis = {
+							typeCheckingMode = "basic",
+							autoSearchPaths = true,
+							useLibraryCodeForTypes = true,
+						},
+					},
+				},
+			})
+			vim.lsp.enable("basedpyright")
+
+			vim.lsp.config("ruff", {
+				install = true,
+				capabilities = capabilities,
+				on_attach = function(client, bufnr)
+					client.server_capabilities.hoverProvider = false
+				end,
+			})
+			vim.lsp.enable("ruff")
+
+			-- lua
 			vim.lsp.config("lua_ls", {
 				install = true,
 				cmd = { "lua-language-server" },
@@ -22,46 +48,6 @@ return {
 				},
 			})
 			vim.lsp.enable("lua_ls")
-
-			local jdtls_available, jdtls = pcall(require, "jdtls")
-			if jdtls_available then
-				vim.api.nvim_create_autocmd("FileType", {
-					pattern = "java",
-					callback = function()
-						local root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "pom.xml", "gradlew" })
-						local home = os.getenv("HOME")
-						local workspace_dir = home
-							.. "/.cache/jdtls-workspace/"
-							.. vim.fn.fnamemodify(root_dir, ":p:h:t")
-
-						local mason_jdtls_path = home .. "/.local/share/nvim/mason/packages/jdtls"
-
-						local config = {
-							cmd = {
-								"/usr/lib/jvm/java-21-openjdk/bin/java",
-								"-Declipse.application=org.eclipse.jdt.ls.core.id1",
-								"-Dosgi.bundles.defaultStartLevel=4",
-								"-Declipse.product=org.eclipse.jdt.ls.core.product",
-								"-Dlog.level=WARN",
-								"-Xmx2G",
-								"--add-modules=ALL-SYSTEM",
-								"--add-opens",
-								"java.base/java.util=ALL-UNNAMED",
-								"--add-opens",
-								"java.base/java.lang=ALL-UNNAMED",
-								"-jar",
-								vim.fn.glob(mason_jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
-								"-configuration",
-								mason_jdtls_path .. "/config_linux",
-								"-data",
-								workspace_dir,
-							},
-						}
-
-						jdtls.start_or_attach(config)
-					end,
-				})
-			end
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
