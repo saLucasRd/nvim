@@ -17,23 +17,23 @@ return {
 				},
 				on_attach = function(bufnr)
 					local gs = require("gitsigns")
-					local map = function(keys, func, desc)
-						vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+					local function map(mode, l, r, desc)
+						vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
 					end
 
-					map("]h", function()
+					-- 1. Navigation (Crucial for jumping between changes)
+					map("n", "]h", function()
 						gs.nav_hunk("next")
 					end, "Next Hunk")
-					map("[h", function()
+					map("n", "[h", function()
 						gs.nav_hunk("prev")
 					end, "Prev Hunk")
 
-					map("<leader>Gs", gs.stage_hunk, "Stage Hunk")
-					map("<leader>Gr", gs.reset_hunk, "Reset Hunk")
-					map("<leader>GS", gs.stage_buffer, "Stage Buffer")
-					map("<leader>Gp", gs.preview_hunk, "Preview Hunk")
-					map("<leader>Gb", gs.toggle_current_line_blame, "Toggle Blame")
-					map("<leader>Gd", gs.diffthis, "Diff This")
+					-- 2. The Essentials (What you actually use daily)
+					map("n", "<C-g>p", gs.preview_hunk, "Preview Hunk")
+					map("n", "<C-g>r", gs.reset_hunk, "Reset Hunk")
+					map("n", "<C-g>b", gs.toggle_current_line_blame, "Toggle Blame")
+					map("n", "<C-g>d", gs.diffthis, "Diff This File")
 				end,
 			})
 		end,
@@ -42,19 +42,8 @@ return {
 	{
 		"sindrets/diffview.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
-
-	{
-		"kdheepak/lazygit.nvim",
-		cmd = {
-			"LazyGit",
-			"LazyGitConfig",
-			"LazyGitCurrentFile",
-			"LazyGitFilter",
-			"LazyGitFilterCurrentFile",
-		},
-		dependencies = {
-			"nvim-lua/plenary.nvim",
+		keys = {
+			{ "<C-g>v", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
 		},
 	},
 }

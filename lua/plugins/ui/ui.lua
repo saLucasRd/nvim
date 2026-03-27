@@ -11,11 +11,12 @@ return {
 			wk.add({
 				-- Groups
 				{ "<leader>d", group = "Diagnostics", icon = "" },
+				{ "<leader>t", group = "Terminal", icon = "" },
 				{ "<leader>h", group = "Harpoon", icon = "" },
 				{ "<leader>s", group = "Search", icon = "" },
 				{ "<leader>g", group = "Go to", icon = "" },
 				{ "<leader>c", group = "Code", icon = "" },
-				{ "<leader>G", group = "Git", icon = "" },
+				{ "<C-g>", group = "Git", icon = "" },
 
 				{ "<leader><leader>", desc = "Find Buffers" },
 				{ "<leader>/", desc = "Fuzzy Search Buffer" },

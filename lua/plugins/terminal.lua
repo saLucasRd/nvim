@@ -12,7 +12,7 @@ return {
 				shade_terminals = true,
 				start_in_insert = true,
 				persist_size = true,
-				direction = "horizontal", -- PADRÃO agora é horizontal (estilo VS Code)
+				direction = "float", -- PADRÃO agora é horizontal (estilo VS Code)
 				close_on_exit = true,
 				shell = vim.o.shell,
 			})
@@ -38,7 +38,7 @@ return {
 			-- 3. Terminal Normal (Estilo VS Code)
 			-- Como o padrão no setup acima é 'horizontal', não precisamos forçar aqui
 			local vsc_term = Terminal:new({
-				direction = "horizontal",
+				direction = "float",
 				hidden = true,
 			})
 
