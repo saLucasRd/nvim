@@ -11,7 +11,6 @@ return {
 			wk.add({
 				-- Groups
 				{ "<leader>d", group = "Diagnostics", icon = "" },
-				{ "<leader>t", group = "Terminal", icon = "" },
 				{ "<leader>h", group = "Harpoon", icon = "" },
 				{ "<leader>s", group = "Search", icon = "" },
 				{ "<leader>g", group = "Go to", icon = "" },

@@ -35,7 +35,7 @@ nvim/
 │       │   └── lazydev.lua     # Lua dev completions
 │       ├── navigation/
 │       │   ├── harpoon.lua     # File bookmarks (harpoon2)
-│       │   ├── oil.lua         # File explorer
+│       │   ├── yazi.lua        # File manager (yazi TUI)
 │       │   ├── telescope.lua   # Fuzzy finder
 │       │   └── tmux.lua        # Tmux pane navigation
 │       └── ui/
@@ -61,11 +61,10 @@ nvim/
 | Syntax       | nvim-treesitter                 | AST-based highlighting           |
 | Navigation   | telescope.nvim + fzf-native     | Fuzzy finder                     |
 | Navigation   | harpoon (v2)                    | File bookmarks                   |
-| Navigation   | oil.nvim                        | File explorer (edit fs as buffer)|
+| Navigation   | yazi.nvim                       | File manager (yazi TUI)          |
 | Navigation   | vim-tmux-navigator              | Seamless tmux/nvim pane nav      |
 | Git          | gitsigns.nvim                   | Inline git hunks + blame         |
 | Git          | diffview.nvim                   | Git diff/history viewer          |
-| Terminal     | toggleterm.nvim                 | Floating terminal, lazygit, lazydocker |
 | Utility      | nvim-autopairs                  | Auto-close brackets              |
 | Utility      | Comment.nvim                    | Line/block commenting            |
 
@@ -147,19 +146,10 @@ Format on save — 500ms timeout, LSP fallback.
 | `<leader>hh`   | Toggle menu      |
 | `<M-1..4>`     | Jump to slot 1-4 |
 
-### Terminal — `<leader>t`
-
-| Key           | Action                  |
-|---------------|-------------------------|
-| `<leader>tt`  | Float terminal          |
-| `<leader>tg`  | Lazygit (float)         |
-| `<leader>td`  | Lazydocker (float)      |
-| `<C-\>`       | Toggle default terminal |
-| `<Esc><Esc>`  | Exit terminal mode      |
-
 ### Navigation
 
 | Key              | Action                        |
 |------------------|-------------------------------|
-| `-`              | Oil file explorer (float)     |
+| `-`              | Yazi at current file          |
+| `<leader>ew`     | Yazi in cwd                   |
 | `<C-h/j/k/l>`   | Tmux/nvim pane navigation     |
