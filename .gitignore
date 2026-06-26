@@ -1,0 +1,9 @@
+# Neovim generated
+/spell/
+*.log
+
+# Mason installed tools & LSPs (binaries, not config)
+/mason/
+
+# DAP adapters
+/dap/

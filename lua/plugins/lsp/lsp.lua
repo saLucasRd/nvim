@@ -1,10 +1,5 @@
 return {
 	{
-		"mfussenegger/nvim-jdtls",
-		dependencies = { "neovim/nvim-lspconfig", "saghen/blink.cmp" },
-		ft = "java",
-	},
-	{
 		"neovim/nvim-lspconfig",
 		dependencies = { "saghen/blink.cmp" },
 		config = function()
@@ -48,6 +43,19 @@ return {
 				},
 			})
 			vim.lsp.enable("lua_ls")
+
+			-- c/c++
+			vim.lsp.config("clangd", {
+				capabilities = capabilities,
+				cmd = { "clangd", "--background-index", "--clang-tidy" },
+			})
+			vim.lsp.enable("clangd")
+
+			-- php
+			vim.lsp.config("intelephense", {
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("intelephense")
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),

@@ -2,7 +2,7 @@ return {
 	{
 		"williamboman/mason.nvim",
 		opts = {
-			ensure_installed = { "jdtls", "google-java-format", "stylua" },
+			ensure_installed = { "stylua", "php-cs-fixer", "codelldb" },
 		},
 		config = function()
 			require("mason").setup()
@@ -13,8 +13,9 @@ return {
 		opts = {
 			ensure_installed = {
 				"lua_ls",
-				"pyright",
+				"basedpyright",
 				"clangd",
+				"intelephense",
 			},
 		},
 	},

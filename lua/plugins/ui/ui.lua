@@ -45,11 +45,9 @@ return {
 			require("rainbow-delimiters.setup").setup({
 				strategy = {
 					[""] = rainbow_delimiters.strategy["global"],
-					java = rainbow_delimiters.strategy["global"],
 				},
 				query = {
 					[""] = "rainbow-delimiters",
-					java = "rainbow-delimiters",
 				},
 				highlight = {
 					"RainbowDelimiterRed",
