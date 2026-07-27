@@ -1,5 +1,32 @@
 return {
 	{
+		"williamboman/mason.nvim",
+		config = function()
+			require("mason").setup()
+		end,
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		opts = {
+			ensure_installed = {
+				"lua_ls",
+				"clangd",
+				"basedpyright",
+				"intelephense",
+				"html",
+				"cssls",
+				"tailwindcss",
+				"jsonls",
+				"vtsls",
+				"dockerls",
+				"yamlls",
+				"bashls",
+				"sqlls",
+
+			},
+		},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = { "saghen/blink.cmp" },
 		config = function()
