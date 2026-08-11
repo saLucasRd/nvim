@@ -1,61 +1,48 @@
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 0
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = false
-vim.opt.smartindent = true
+local options = {
+	laststatus = 3,
+	ruler = false, --disable extra numbering
+	showmode = false, --not needed due to lualine
+	showcmd = false,
+	wrap = true, --toggle bound to leader W
+	mouse = "a", --enable mouse
+	clipboard = "unnamedplus", --system clipboard integration
+	history = 100, --command line history
+	swapfile = false, --swap just gets in the way, usually
+	backup = false,
+	undofile = true, --undos are saved to file
+	cursorline = true, --highlight line
+	ttyfast = true, --faster scrolling
+	smoothscroll = true,
+	title = true, --automatic window titlebar
+	
+	number = true, --numbering lines
+	relativenumber = true, --toggle bound to leader nn
+	numberwidth = 4,
 
-vim.opt.mouse = "a"
-vim.opt.cursorline = true
-vim.opt.pumheight = 10
+	smarttab = true, --indentation stuff
+	cindent = true,
+	autoindent = false,
+	tabstop = 4, --visual width of tab
 
--- testing
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.smoothscroll = true
--- vim.opt.lazyredraw = false
+	foldmethod = "expr",
+	foldlevel = 99, --disable folding, lower #s enable
+	foldexpr = "nvim_treesitter#foldexpr()",
+	
+	termguicolors = true,
 
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
+	ignorecase = true, --ignore case while searching
+	smartcase = true, --but do not ignore if caps are used
 
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+	conceallevel = 2, --markdown conceal
+	concealcursor = "nc",
 
-vim.opt.relativenumber = true
-vim.opt.number = true
-vim.opt.termguicolors = true
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
-
-vim.opt.updatetime = 50
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undofile = true
-vim.opt.clipboard = "unnamedplus"
-
-vim.opt.colorcolumn = "100"
-vim.opt.signcolumn = "yes"
-
-vim.opt.wrap = true
-vim.opt.breakindent = true
-vim.opt.showbreak = " ↪ "
-
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
-vim.opt.linebreak = true
-
-vim.opt.list = true
-vim.opt.listchars = {
-	tab = "» ",
-	trail = "·",
-	nbsp = "␣",
-	extends = "→",
-	precedes = "←",
+	splitkeep = 'screen', --stablizie window open/close
 }
 
-vim.opt.laststatus = 3 
-vim.opt.showmode = false
-vim.opt.splitkeep = "screen"
+for k, v in pairs(options) do
+	vim.opt[k] = v
+end
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldlevel = 99
+vim.diagnostic.config({
+	signs = false,
+})

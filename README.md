@@ -1,155 +1,118 @@
-# Neovim Config
+## Bread's guide to **Neovim** configuration
 
-Personal Neovim config built on [lazy.nvim](https://github.com/folke/lazy.nvim). Focused on Python, C/C++, PHP, Lua, JavaScript, and TLA+ development with tmux integration.
+#### Build off of mine, or start your own!
 
-## Requirements
+<br>
 
-- Neovim >= 0.11
-- Git
-- [Nerd Font](https://www.nerdfonts.com/) (mono variant)
-- `make` (for telescope-fzf-native)
-- `lazygit` and `lazydocker` (optional)
-- tmux (optional, for pane navigation)
+> Before starting, ensure you have:
+> - **neovim** (duh)
+> - a [patched font](https://www.nerdfonts.com/) and a terminal that supports glyphs
 
-## Structure
+<br> 
 
+### Quickstart with my config:
 ```
-nvim/
-├── init.lua                    # Entry point
-├── lua/
-│   ├── remap.lua               # Global keymaps
-│   ├── config/
-│   │   ├── lazy.lua            # Plugin manager bootstrap
-│   │   └── set.lua             # Vim options
-│   └── plugins/
-│       ├── blink.lua           # Completion (blink.cmp + LuaSnip)
-│       ├── editor_ui.lua       # Colorscheme (kanagawa-wave) + lualine
-│       ├── format.lua          # Formatting (conform.nvim)
-│       ├── git.lua             # Git (gitsigns + diffview)
-│       ├── terminal.lua        # Terminal (toggleterm + lazygit/lazydocker)
-│       ├── treesitter.lua      # Syntax (nvim-treesitter)
-│       ├── utility.lua         # autopairs + Comment.nvim
-│       ├── lsp/
-│       │   ├── lsp.lua         # LSP configs (basedpyright, ruff, lua_ls, clangd, intelephense)
-│       │   ├── mason.lua       # Mason tool installer
-│       │   └── lazydev.lua     # Lua dev completions
-│       ├── navigation/
-│       │   ├── harpoon.lua     # File bookmarks (harpoon2)
-│       │   ├── yazi.lua        # File manager (yazi TUI)
-│       │   ├── telescope.lua   # Fuzzy finder
-│       │   └── tmux.lua        # Tmux pane navigation
-│       └── ui/
-│           └── ui.lua          # which-key, noice, notify, todo-comments, rainbow-delimiters
+cd ~/.config/ && git clone https://github.com/BreadOnPenguins/nvim
+```
+- On first boot, run `:PlugInstall` to ensure all plugins are installed and updated with [vim-plug](https://github.com/junegunn/vim-plug)
+- Key maps are in `lua/config/mappings.lua`
+    * **Leader is bound to space**, you can press space by itself for which-key to pop up with bindings info
+- Neovim options are set in `lua/config/options.lua` with some comments for info
+- All plugin configuration is located in the `lua/plugins/` folder
+    * To add or remove plugins, modify the `Plug()` section in `init.lua` appropriately, and ensure to modify `require()` as needed for configuration.
+    * Then run `:PlugInstall` to install or `:PlugClean` to uninstall
+
+<br>
+
+### Starting your own config:
+
+Yes, there are a lot of choices! But don't worry, you can easily change your mind later.
+
+**1. Do you want:**
+* Minimal?
+* Power User?
+* Full IDE?
+
+An example directory structure and plugin configuration for each of those is included below.
+
+**2. Choose directory structure**
+- If you prefer vimscript, use an `init.vim`
+- Otherwise, use an `init.lua`
+- If you intend to have a lot of plugins or want a neater structure, split into separate files
+    * You can always expand to more files later
+
+**3. Pick plugin manager**
+- [vim-plug](https://github.com/junegunn/vim-plug) is a minimal option
+- [lazy.nvim](https://github.com/folke/lazy.nvim) is more feature-rich
+- or [several other choices](https://github.com/rockerBOO/awesome-neovim?tab=readme-ov-file#plugin-manager)
+
+**4. Pick plugins** 
+- [Awesome neovim plugins list](https://github.com/rockerBOO/awesome-neovim)
+- See below for a rough guide on types of plugins
+
+**5. Set mappings, options, and plugin config**
+- Use `:help options` or browse [here](https://neovim.io/doc/user/options.html)
+- You don't *always* need to configure plugins: most have sensible defaults, and you can set as few or as many opts as you wish.
+<br><br>
+### the Minimalist (better text editor)
+```
+~/.config/nvim/
+└── init.vim
 ```
 
-## Plugins
+Plugins might include:
+- File tree
+- Fuzzy finder
+- Comment quick toggle
+- Surround editing
+- Better syntax highlighting
+- Probably a color scheme and status line
+<br><br>
+### the Power User
+```
+~/.config/nvim/
+├── init.lua
+└── lua
+    ├── core
+    │   ├── keymaps.lua
+    │   └── options.lua
+    └── plugins
+        └── plugin.lua
+        └── configs.lua
+```
 
-| Category     | Plugin                          | Purpose                          |
-|--------------|---------------------------------|----------------------------------|
-| UI           | kanagawa.nvim                   | Colorscheme (wave variant)       |
-| UI           | lualine.nvim                    | Statusline                       |
-| UI           | noice.nvim + nvim-notify        | UI overhaul for messages/cmdline |
-| UI           | which-key.nvim                  | Keymap hints                     |
-| UI           | rainbow-delimiters.nvim         | Bracket pair colorizing          |
-| UI           | todo-comments.nvim              | Highlight TODO/FIXME/etc         |
-| LSP          | nvim-lspconfig                  | LSP client config                |
-| LSP          | mason.nvim + mason-lspconfig    | LSP/tool installer               |
-| LSP          | lazydev.nvim                    | Lua/Neovim API completions       |
-| Completion   | blink.cmp                       | Completion engine                |
-| Completion   | LuaSnip + friendly-snippets     | Snippet engine + snippet library |
-| Formatting   | conform.nvim                    | Format on save                   |
-| Syntax       | nvim-treesitter                 | AST-based highlighting           |
-| Navigation   | telescope.nvim + fzf-native     | Fuzzy finder                     |
-| Navigation   | harpoon (v2)                    | File bookmarks                   |
-| Navigation   | yazi.nvim                       | File manager (yazi TUI)          |
-| Navigation   | vim-tmux-navigator              | Seamless tmux/nvim pane nav      |
-| Git          | gitsigns.nvim                   | Inline git hunks + blame         |
-| Git          | diffview.nvim                   | Git diff/history viewer          |
-| Utility      | nvim-autopairs                  | Auto-close brackets              |
-| Utility      | Comment.nvim                    | Line/block commenting            |
+Plugins might include:
+- Everything above, AND
+- LSP & autocompletion
+- Snippets
+- Git integration
+- Faster motions, window management
+- Terminal integration
+- Project and session management
+- Tabline and cursorline
+<br><br>
+### full IDE (do you even need this guide?)
+```
+~/.config/nvim/
+├── init.lua
+├── lazy-lock.json
+└── lua
+    ├── core
+    │   ├── keymaps.lua
+    │   ├── options.lua
+    │   └── plugins.lua
+    ├── plugins
+    │   └── lots.lua
+    │   └── of.lua
+    │   └── plugin.lua
+    │   └── configs.lua
+    └── UltiSnips
+        └── tex.snippets
+```
 
-## LSP Servers
-
-| Language   | Server        | Notes                     |
-|------------|---------------|---------------------------|
-| Python     | basedpyright  | Type checking: basic      |
-| Python     | ruff          | Linting (hover disabled)  |
-| Lua        | lua_ls        | vim global recognized     |
-| C/C++      | clangd        | Background index, clang-tidy |
-| PHP        | intelephense  | Full-featured PHP LSP     |
-
-## Formatters (conform.nvim)
-
-| Filetype   | Formatter     |
-|------------|---------------|
-| Lua        | stylua        |
-| JavaScript | prettier      |
-| HTML       | prettier      |
-| C          | clang-format  |
-| C++        | clang-format  |
-| PHP        | php-cs-fixer  |
-
-Format on save — 500ms timeout, LSP fallback.
-
-## Treesitter Grammars
-
-`lua`, `vim`, `vimdoc`, `query`, `javascript`, `html`, `css`, `python`, `bash`, `c`, `cpp`, `php`, `tlaplus`
-
-## Keymaps
-
-**Leader:** `<Space>`
-
-### Search (Telescope) — `<leader>s`
-
-| Key                  | Action                  |
-|----------------------|-------------------------|
-| `<leader>sf`         | Find files              |
-| `<leader>sg`         | Live grep               |
-| `<leader>sw`         | Grep word under cursor  |
-| `<leader>sr`         | Resume last search      |
-| `<leader>sh`         | Help tags               |
-| `<leader>sk`         | Keymaps                 |
-| `<leader>sd`         | Diagnostics             |
-| `<leader>sn`         | Neovim config files     |
-| `<leader><leader>`   | Open buffers            |
-| `<leader>/`          | Fuzzy search buffer     |
-
-### LSP / Code — `<leader>g` / `<leader>c`
-
-| Key           | Action               |
-|---------------|----------------------|
-| `<leader>gr`  | References           |
-| `<leader>gd`  | Go to definition     |
-| `<leader>gi`  | Go to implementation |
-| `<leader>gt`  | Type definition      |
-| `<leader>ca`  | Code action          |
-| `<leader>cf`  | Format file          |
-| `<leader>cr`  | Rename symbol        |
-| `K`           | Hover docs           |
-
-### Git — `<C-g>`
-
-| Key          | Action              |
-|--------------|---------------------|
-| `<C-g>p`     | Preview hunk        |
-| `<C-g>r`     | Reset hunk          |
-| `<C-g>b`     | Toggle line blame   |
-| `<C-g>d`     | Diff this file      |
-| `<C-g>v`     | Diffview open       |
-| `]h` / `[h`  | Next/prev hunk      |
-
-### Harpoon — `<leader>h`
-
-| Key            | Action           |
-|----------------|------------------|
-| `<leader>ha`   | Add file         |
-| `<leader>hh`   | Toggle menu      |
-| `<M-1..4>`     | Jump to slot 1-4 |
-
-### Navigation
-
-| Key              | Action                        |
-|------------------|-------------------------------|
-| `-`              | Yazi at current file          |
-| `<leader>ew`     | Yazi in cwd                   |
-| `<C-h/j/k/l>`   | Tmux/nvim pane navigation     |
+Plugins might include:
+- Everything above, AND
+- Debugging
+- Code runners
+- Remote development
+- Refactoring
